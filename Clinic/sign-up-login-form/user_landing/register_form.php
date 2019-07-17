@@ -632,7 +632,7 @@
             </select>
 
             <span class="help-block">
-							Click <a href="https://peerj.com/articles/6762/#table-1">here</a> to learn more about the types of challenges
+							Click <a href="https://peerj.com/articles/6762/#table-1" target="_blank">here</a> to learn more about the types of challenges
             </span>
 
 						<label class="control-label " for="select2">

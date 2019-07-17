@@ -48,22 +48,30 @@
       $fileTmpName = $file_array[$i]['tmp_name'];
       $fileError = $file_array[$i]['error'];
       $fileSize = $file_array[$i]['size'];
+      // echo $fileSize;
+      // exit;
+      // if (isset($_SERVER["CONTENT_LENGTH"])) {
+      //     echo '<script> alert("Filesize exceeds 500KB"); window.location.href=\'index.php\'; </script>';
+      // }
+
+      if($fileSize > 50000000){ // throw error if filesize is > 50MB
+        echo '<script> alert("Filesize exceeds 500KB"); window.location.href=\'index.php\'; </script>';
+      }
 
       if($file_array[$i]['error']){
+        echo '<script> alert("An unexpected error came with your file. Please check your filesize, extention, and name"); window.location.href=\'index.php\'; </script>';
+        // echo "<script> alert(\"".$fileName. " - ". $phpfileuploaderrors[$fileError] "\"); window.location.href=\"index.php\"; </script>";
+        exit;
 
-        ?> <div class="alert alert-danger">
-          <?php echo "<script> alert('". $fileName. ' - '. $phpfileuploaderrors[$fileError]. "')</script >"  ;
-          ?> </div> <?php
       }
       else{
-        $allowed = array('jpg', 'jpeg', 'gif', 'png', 'pdf', 'wmv', 'doc', 'zip', 'csv', 'pptx', 'ppt', 'xls','xlsx','mp4','mp3','docx','txt');
+        $allowed = array('jpg', 'jpeg', 'gif', 'png', 'pdf', 'wmv', 'doc', 'docx', 'zip', 'csv', 'pptx', 'ppt', 'xls','xlsx','mp4','mp3','docx','txt');
         $fileExt = explode('.', $fileName);
         $fileExt = strtolower(end($fileExt));
         // echo $fileExt;
         if(!in_array($fileExt, $allowed)){
-          ?> <div class="alert alert-danger">
-            <?php echo "<script> alert('". $fileName. " invalid File extension". "')</script >"  ;
-            ?> </div> <?php
+            echo '<script> alert("Invalid file extension. Accepted file extensions are: jpg, jpeg, gif, png, pdf, wmv, doc, zip, csv, pptx, ppt, xls, xlsx, mp4, mp3, docx, txt"); window.location.href=\'index.php\'; </script>';
+            exit;
         }else {
           //add timestamp to $fileName
           $fileNameNew = $user_name ."-". $user_id. "-".uniqid('',true).".".$fileExt;
