@@ -1346,7 +1346,7 @@
            <script>
             function leaveConfirm() {
               if(confirm("Are you sure you want to leave this page?")){
-								window.location.href = 'sign-up-login-form/user_landing/index.php#service';
+								window.location.href = 'index.php#service';
 							}
             }
           </script>

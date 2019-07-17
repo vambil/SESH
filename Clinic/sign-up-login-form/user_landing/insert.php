@@ -13,6 +13,17 @@ $organization = mysqli_real_escape_string($conn, $_POST['organization']);
 $stage = mysqli_real_escape_string($conn, $_POST['stage']);
 $contest_name = NULL;
 
+$to = 'chessboy17@gmail.com';
+if($_SESSION['new_contest']){
+  $subject = "Shufang, ". $_SESSION['u_first']. " ". $_SESSION['u_last']. " has registered a new contest!";
+}else {
+  // code...
+  $subject = "Shufang, ". $_SESSION['u_first']. " ". $_SESSION['u_last']. " has edited ". $_SESSION['general_row']['contest_name'] ."!";
+}
+$htmlContent = "here is some content!";
+$headers = "From: vibhu.ambil@gmail.com";
+
+
 if($_SESSION['new_contest']){
     $contest_name = $_POST['contest_name'];
 }
@@ -135,6 +146,8 @@ if($_SESSION['new_contest'] == false){
     }
     echo "Your early registration has been submitted!";
     $conn->close();
+
+    mail($to,$subject,$htmlContent,$headers);
     header("Location: index.php#service");
     die();
   }
@@ -196,6 +209,8 @@ if($_SESSION['new_contest'] == false){
       }
       echo "Your mid registration has been submitted!";
       $conn->close();
+
+      mail($to,$subject,$htmlContent,$headers);
       header("Location: index.php#service");
       die();
   }
@@ -272,6 +287,8 @@ if($_SESSION['new_contest'] == false){
     }
     echo "Your completed registration has been submitted!";
     $conn->close();
+
+    mail($to,$subject,$htmlContent,$headers);
     header("Location: index.php#service");
     die();
 
