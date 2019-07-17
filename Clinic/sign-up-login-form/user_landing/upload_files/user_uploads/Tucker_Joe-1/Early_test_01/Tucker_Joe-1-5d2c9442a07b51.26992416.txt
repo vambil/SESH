@@ -1,0 +1,8 @@
+# HTTrack Website Copier Cookie File
+# This file format is compatible with Netscape cookies
+mentor-demo.squarespace.com	TRUE	/	FALSE	1999999999	crumb	BaxrDBNNKEwCZTdmY2Q0NzY3MDk3NWM1MDQ3ZmI5Mzk2NWEyZWU0
+.squarespace.com	TRUE	/	FALSE	1999999999	SS_MID	2272f3e9-a0c2-4caa-9391-b9135738a10fjwklw1jy
+mentor-demo.squarespace.com	TRUE	/	FALSE	1999999999	ss_cid	baebcb07-3b8c-42a0-b521-786de95b93bc
+mentor-demo.squarespace.com	TRUE	/	FALSE	1999999999	ss_cvisit	1559822243150
+mentor-demo.squarespace.com	TRUE	/	FALSE	1999999999	ss_cpvisit	1559822243150
+
