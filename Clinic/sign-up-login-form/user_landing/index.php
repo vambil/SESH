@@ -519,12 +519,12 @@
                             ?>
                           </div>
                           <div class="col">
+
                             <?php
-                              $_SESSION['cur_contest'] = $row['contest_name'];
-                              $_SESSION['cur_type'] = $row['stage'];
-                              // echo "<a href=\"delete_contest.php?contest_name=". $row['contest_name']. " \"><font color=\"red\">delete</font></a>";
+                              echo "<a href=\"delete_contest.php?contest_name=". $row['contest_name']. " \"><font color=\"red\">delete</font></a>";
                             ?>
-                            <a href="delete_contest.php"><font color="red">delete</font></a>
+
+                            <!-- <a href="delete_contest.php?contest_name="><font color="red">delete</font></a> -->
                             <!-- <a><font color="red">delete</font></a> -->
                             <!-- <?php //echo "<a href=\"mailto:" . $_SESSION["u_email"] . "\"";?>><i class="fas fa-envelope"></i></a> -->
                           </div>
@@ -575,7 +575,7 @@
 
     <!--====== CALL TO ACTION PART START ======-->
 
-    <section  id="call-to-action" class="call-to-action pt-125 pb-130 bg_cover" height = "30px" style="background-image: url(../../Home-img.jpg)">
+    <section  id="call-to-action" class="call-to-action pt-125 pb-130 bg_cover" height = "30px" style="background-image: url(../../Images/Home-img.jpg)">
         <div height="10px" class="container">
             <div class="row justify-content-center">
                 <div class="col-xl-14 col-lg-12">

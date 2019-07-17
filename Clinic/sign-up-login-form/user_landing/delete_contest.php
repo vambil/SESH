@@ -1,9 +1,20 @@
 <?php
-  session_start();
+session_start();
+
+function getGeneralRow($contest_name){
+  $conn = new mysqli('localhost', 'root', '', 'registration_storage');
+  $sql = "SELECT * FROM general WHERE contest_name = '$contest_name'";
+  $result = mysqli_query($conn, $sql);
+  return mysqli_fetch_array($result);
+}
+
+if(isset($_GET['contest_name'])){
 
       $conn = new mysqli('localhost', 'root', '', 'registration_storage');
+      $row = getGeneralRow($_GET['contest_name']);
+      $contest_stage = $row['stage'];
 
-      $sql ="DELETE FROM general WHERE contest_name = '$_SESSION[cur_contest]' ";
+      $sql ="DELETE FROM general WHERE contest_name = '$_GET[contest_name]' ";
 
       if (mysqli_query($conn, $sql) == true) {
           echo "GENERAL Records deleted successfully";
@@ -12,21 +23,22 @@
       }
 
       $sql2 = NULL;
-      if($_SESSION['cur_type'] == "Early"){
-        $sql2 ="DELETE FROM early_storage WHERE contest_name = '$_SESSION[cur_contest]' ";
+      if($contest_stage == "Early"){
+        $sql2 ="DELETE FROM early_storage WHERE contest_name = '$_GET[contest_name]' ";
 
-      }elseif ($_SESSION['cur_type'] == "Mid") {
-        $sql2 ="DELETE FROM mid_storage WHERE contest_name = '$_SESSION[cur_contest]' ";
-      }elseif ($_SESSION['cur_type'] == "Completed") {
-        $sql2 ="DELETE FROM completed_storage WHERE contest_name = '$_SESSION[cur_contest]' ";
+      }elseif ($contest_stage == "Mid") {
+        $sql2 ="DELETE FROM mid_storage WHERE contest_name = '$_GET[contest_name]' ";
+      }elseif ($contest_stage == "Completed") {
+        $sql2 ="DELETE FROM completed_storage WHERE contest_name = '$_GET[contest_name]' ";
       }
 
       if (mysqli_query($conn, $sql2) == true) {
-          echo $_SESSION['cur_type']. "Records deleted successfully";
+          echo $contest_stage. "Records deleted successfully";
       } else {
-          echo "Error editing". $_SESSION['cur_type'].  "record: ";
+          echo "Error editing". $contest_stage.  "record: ";
       }
 
       $conn->close();
-      header("Location: index.php");
+      header("Location: index.php#service");
       die();
+}

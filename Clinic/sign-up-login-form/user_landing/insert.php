@@ -135,7 +135,7 @@ if($_SESSION['new_contest'] == false){
     }
     echo "Your early registration has been submitted!";
     $conn->close();
-    header("Location: sign-up-login-form/user_landing/index.php#service");
+    header("Location: index.php#service");
     die();
   }
   else if($stage == "Mid"){
@@ -196,7 +196,7 @@ if($_SESSION['new_contest'] == false){
       }
       echo "Your mid registration has been submitted!";
       $conn->close();
-      header("Location: sign-up-login-form/user_landing/index.php#service");
+      header("Location: index.php#service");
       die();
   }
   else if($stage == "Completed"){
@@ -272,7 +272,7 @@ if($_SESSION['new_contest'] == false){
     }
     echo "Your completed registration has been submitted!";
     $conn->close();
-    header("Location: sign-up-login-form/user_landing/index.php#service");
+    header("Location: index.php#service");
     die();
 
   }

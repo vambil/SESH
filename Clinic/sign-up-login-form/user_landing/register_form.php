@@ -1325,7 +1325,7 @@
 							Attach any documents/materials that you used in organizing the challenge? Any other contest related documents are acceptable.
 						</label>
 
-						<a href="sign-up-login-form/user_landing/upload_files/index.php" target="_blank">Click here to go to the Upload Portal</a>
+						<a href="upload_files/index.php" target="_blank">Click here to go to the Upload Portal</a>
 							<!-- <input type="file" name = "completed_attachments" multiple> -->
 
 						<!-- <span class="help-block" id="hint_text2">
