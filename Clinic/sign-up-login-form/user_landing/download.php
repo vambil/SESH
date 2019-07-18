@@ -6,7 +6,7 @@ $folder_name = $_SESSION['u_last']. "_". $_SESSION['u_first']."-".$_SESSION['u_i
 $folder_path = "upload_files/user_uploads/".$folder_name."/".$_GET['contest_name'];
 
 if(!file_exists($folder_path)){
-  echo '<script> alert("You have not uploaded any files for this contest"); window.location.href=\'index.php#service\'; </script>';
+  echo '<script> alert("There are no files uploaded for this contest"); window.location.href=\'index.php#work\'; </script>';
   exit;
   // header("Location: index.php#service");
 }

@@ -33,6 +33,7 @@
   <span class="help-block" id="hint_text2">
     <center><i>To attach multiple files, select more than one file when browsing for files.</i></center>
   </span>
+  <center><b><p>The materials that you upload here will be available as resources for other users in the network to use.</p></b></center>
 
   <button type="submit" name="submit" class="file-uploader__submit-button" >UPLOAD</button>
   <!-- <input class="file-uploader__submit-button" name="sumbit" type="submit" value="Upload"> -->

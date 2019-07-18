@@ -580,6 +580,15 @@
 					   </div>
 
 					  </div>
+						<span>
+							<p>
+
+												<sub><b>Early</b>: If you are still considering crowdsourcing, and thinking about using it for a project/study.</sub>
+									</br>	<sub><b>Mid</b>: You have already begun planning your crowdsourcing contest.</sub>
+								</br></br>	<sup><b>Complete</b>: You have completed a crowdsourcing contest.</sup>
+
+						</p>
+            </span>
 
 
 					 </div>

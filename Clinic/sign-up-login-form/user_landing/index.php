@@ -792,7 +792,7 @@
                       <h5 class="card-title"> <?php echo "</br>". $general_row['stage']. ": ". $row['contest_name']; ?> </h5>
                       <p><?php
 
-                        echo $this_row['goal'];
+                        echo $row['goal'];
                       ?></p>
                       <hr>
                       <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d11880.492291371422!2d12.4922309!3d41.8902102!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x28f1c82e908503c4!2sColosseo!5e0!3m2!1sit!2sit!4v1524815927977" width="100%" height="200" frameborder="0" style="border:0" allowfullscreen></iframe>
@@ -1028,10 +1028,10 @@
                     <div class="contact-form pt-30">
                         <form id="contact-form" action="mailto:clinic@seshglobal.org" method="post" >
                             <div class="single-form">
-                                <input type="text" name="name" placeholder="Name">
+                                <input type="text" name="name" value = <?php echo $_SESSION['u_first']." ".$_SESSION['u_last']. ""; ?> placeholder="Name">
                             </div> <!-- single form -->
                             <div class="single-form">
-                                <input type="email" name="email" placeholder="Email">
+                                <input type="email" name="email" value = <?php echo $_SESSION['u_email']; ?> placeholder="Email">
                             </div> <!-- single form -->
                             <div class="single-form">
                                 <textarea name="message" placeholder="Message"></textarea>

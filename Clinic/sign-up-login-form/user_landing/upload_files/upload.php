@@ -37,6 +37,8 @@
     $file_array = reArrayFiles($file);
     // echo count($file_array);
 
+    $total_size = 0;
+
     for($i = 0; $i<count($file_array); $i++){
       $user_name = $_SESSION['u_last']."_".$_SESSION['u_first'];
       $user_id = $_SESSION['u_id'];
@@ -74,12 +76,19 @@
             exit;
         }else {
           //add timestamp to $fileName
+          $total_size += $fileSize;
+          if($total_size > 5000000000){ // throw error if filesize is > 5GB
+            echo '<script> alert("Cumalitive size exceeds 5GB"); window.location.href=\'index.php\'; </script>';
+          }
+
           $fileNameNew = $user_name ."-". $user_id. "-".uniqid('',true).".".$fileExt;
 
           if (!file_exists("user_uploads/$user_name-$user_id/$contest_name") ) {
             echo "no directory exists";
             $tmp = $user_name."-".$user_id;
-            mkdir("user_uploads/".$tmp."/".$contest_name);
+            $str = "user_uploads/". $tmp. "/". $contest_name;
+
+            mkdir($str,0777, true);
           }
 
           move_uploaded_file($fileTmpName, "user_uploads/".$user_name ."-". $user_id."/".$contest_name."/".$fileNameNew);
