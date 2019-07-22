@@ -18,7 +18,8 @@ if(isset($_POST['submit'])){
   $result = mysqli_query($conn, $sql);
   $resultCheck = mysqli_num_rows($result);
   if($resultCheck != 1){ //check if user has been taken
-    echo "error, login unsuccesful";
+    echo '<script> alert("Error, user not found"); window.location.href=\'index.html\'; </script>';
+    //echo "error, login unsuccesful";
     exit();
   }
   //email has been found in the database
@@ -26,7 +27,9 @@ if(isset($_POST['submit'])){
     //De hash PASSWORD
     $hashedPasswordCheck = password_verify($password, $row['user_pwd']);
     if($hashedPasswordCheck == false){
-      echo "error, login unsuccesful";
+      echo '<script> alert("Error, incorrect username or password"); window.location.href=\'index.html\'; </script>';
+      //
+      // echo "error, login unsuccesful";
       exit();
     }
     elseif ($hashedPasswordCheck == true) {
@@ -40,6 +43,11 @@ if(isset($_POST['submit'])){
       $_SESSION['user_organization'] = $row['user_organization'];
       $_SESSION['u_email'] = $row['user_email'];
       $_SESSION['u_timestamp'] = $row['user_timestamp'];
+
+      if($email == "clinic@seshglobal.org"){
+        header("Location: user_landing/admin.php");
+        exit();
+      }
 
       echo "Login succesful!";
       header("Location: user_landing/index.php");

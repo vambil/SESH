@@ -6,8 +6,13 @@ $folder_name = $_SESSION['u_last']. "_". $_SESSION['u_first']."-".$_SESSION['u_i
 $folder_path = "upload_files/user_uploads/".$folder_name."/".$_GET['contest_name'];
 
 if(!file_exists($folder_path)){
-  echo '<script> alert("There are no files uploaded for this contest"); window.location.href=\'index.php#work\'; </script>';
-  exit;
+  if($_SESSION['u_email'] == "clinic@seshglobal.org"){
+    echo '<script> alert("There are no files uploaded for this contest"); window.location.href=\'admin.php\'; </script>';
+    exit();
+  }else {
+    echo '<script> alert("There are no files uploaded for this contest"); window.location.href=\'index.php#work\'; </script>';
+    exit;
+  }
   // header("Location: index.php#service");
 }
 

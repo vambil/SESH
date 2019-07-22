@@ -39,6 +39,7 @@ if($_SESSION['new_contest'] == false){
           echo "GENERAL Records deleted successfully";
       } else {
           echo "Error editing general record: ";
+          exit;
       }
 
       $sql2 = NULL;
@@ -73,7 +74,8 @@ if($_SESSION['new_contest'] == false){
   echo $_SESSION['new_contest'];
 
   if($resultCheck > 0 && $_SESSION['new_contest']){ //check if user has been taken and if its a new contest
-    echo "error, this contest name has already has been registered";
+    echo '<script> alert("Error, this contest name has already has been registered"); window.location.href=\'index.php\'; </script>';
+    // echo "error, this contest name has already has been registered";
     exit();
     die();
   }
@@ -94,6 +96,7 @@ if($_SESSION['new_contest'] == false){
           echo "GENERAL Record edited successfully";
       } else {
           echo "Error editing record: ";
+          exit;
       }
     }else {
     $stmt = $conn->prepare("INSERT into general(contest_name, email, country, organization, stage)
@@ -135,7 +138,9 @@ if($_SESSION['new_contest'] == false){
       if (mysqli_query($conn, $sql2) == true) {
           echo "EARLY Record edited successfully";
       } else {
-          echo "Error editing EARLY record: ";
+        echo '<script> alert("Error editing EARLY record"); window.location.href=\'index.php\'; </script>';
+        exit;
+          // echo ": ";
       }
     }else{
       $stmt = $conn->prepare("insert into early_storage(goal, contest_type, field, online, comments, email, contest_name)
@@ -148,6 +153,11 @@ if($_SESSION['new_contest'] == false){
     $conn->close();
 
     mail($to,$subject,$htmlContent,$headers);
+
+    if($_SESSION['u_email'] == "clinic@seshglobal.org"){
+      header("Location: admin.php");
+      exit();
+    }
     header("Location: index.php#service");
     die();
   }
@@ -192,7 +202,9 @@ if($_SESSION['new_contest'] == false){
         if (mysqli_query($conn, $sql2)) {
             echo "MID Record edited successfully";
         } else {
-            echo "Error editing MID record: ";
+          echo '<script> alert("Error editing MID record"); window.location.href=\'index.php\'; </script>';
+          exit;
+            // echo "Error editing MID record: ";
         }
       }
       else{
@@ -211,6 +223,10 @@ if($_SESSION['new_contest'] == false){
       $conn->close();
 
       mail($to,$subject,$htmlContent,$headers);
+      if($_SESSION['u_email'] == "clinic@seshglobal.org"){
+        header("Location: admin.php");
+        exit();
+      }
       header("Location: index.php#service");
       die();
   }
@@ -270,7 +286,9 @@ if($_SESSION['new_contest'] == false){
       if (mysqli_query($conn, $sql2)) {
           echo "Record edited successfully";
       } else {
-          echo "Error editing record: ";
+        echo '<script> alert("Error editing COMPLETED record"); window.location.href=\'index.php\'; </script>';
+        exit;
+        // echo "Error editing record: ";
       }
     }
     else{
@@ -289,6 +307,10 @@ if($_SESSION['new_contest'] == false){
     $conn->close();
 
     mail($to,$subject,$htmlContent,$headers);
+    if($_SESSION['u_email'] == "clinic@seshglobal.org"){
+      header("Location: admin.php");
+      exit();
+    }
     header("Location: index.php#service");
     die();
 

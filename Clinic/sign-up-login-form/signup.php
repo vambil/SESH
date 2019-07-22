@@ -10,9 +10,16 @@ if(isset($_POST['submit'])){
   $organization = mysqli_real_escape_string($conn, $_POST['organization']);
   $email = mysqli_real_escape_string($conn, $_POST['email']);
   $password = mysqli_real_escape_string($conn, $_POST['password']);
+  $re_password = mysqli_real_escape_string($conn, $_POST['re_password']);
 
   if(empty($first) || empty($last) || empty($country) || empty($organization) ||empty($email) || empty($password)){
-    echo "make sure fields are not empty";
+    echo '<script> alert("Please fill out all the required fields"); window.location.href=\'index.html\'; </script>';
+    // echo "make sure fields are not empty";
+    exit();
+  }
+
+  if($password != $re_password){
+    echo '<script> alert("Your passwords do not match"); window.location.href=\'index.html\'; </script>';
     exit();
   }
 
@@ -25,7 +32,9 @@ if(isset($_POST['submit'])){
     $resultCheck = mysqli_num_rows($result);
 
     if($resultCheck != 0){ //check if user has been taken
-      echo "error, this email already has been registered";
+      echo '<script> alert("Error, this email already has been registered"); window.location.href=\'index.html\'; </script>';
+
+      // echo "error, this email already has been registered";
       exit();
     }
     //hash Password

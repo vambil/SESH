@@ -100,6 +100,7 @@
 
     echo "File(s) uploaded sucessfully";
     echo "<script>window.close();</script>";
+    exit;
 
     // $fileName = $_FILES['file']['name'];
     // $fileType = $_FILES['file']['type'];

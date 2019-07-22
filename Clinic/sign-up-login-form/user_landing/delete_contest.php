@@ -8,7 +8,17 @@ function getGeneralRow($contest_name){
   return mysqli_fetch_array($result);
 }
 
+
+
 if(isset($_GET['contest_name'])){
+      // $bool =  '<script> confirm("Are you sure you want to leave delete this contest?");</script>';
+
+      // if($bool){
+        // echo "YAY";
+      // }
+      // $bool = NULL;
+
+      // die();
 
       $conn = new mysqli('localhost', 'root', '', 'registration_storage');
       $row = getGeneralRow($_GET['contest_name']);
