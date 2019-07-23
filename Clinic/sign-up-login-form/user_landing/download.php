@@ -1,8 +1,23 @@
 <?php
 session_start();
 
+function getUserRow($id){
+  $conn = new mysqli('localhost', 'root', '', 'registration_storage');
+  $sql = "SELECT * FROM users WHERE user_id = '$id'";
+  $result = mysqli_query($conn, $sql);
+  return mysqli_fetch_array($result);
+}
 
-$folder_name = $_SESSION['u_last']. "_". $_SESSION['u_first']."-".$_SESSION['u_id'];
+if($_GET['user_id'] == $_SESSION['u_id']){
+  $first = $_SESSION['u_first'];
+  $last = $_SESSION['u_last'];
+}else {
+  $user_row = getUserRow($_GET['user_id']);
+  $first = $user_row['user_first'];
+  $last = $user_row['user_last'];
+}
+
+$folder_name = $last. "_". $first."-".$_GET['user_id'];
 $folder_path = "upload_files/user_uploads/".$folder_name."/".$_GET['contest_name'];
 
 if(!file_exists($folder_path)){
@@ -10,7 +25,7 @@ if(!file_exists($folder_path)){
     echo '<script> alert("There are no files uploaded for this contest"); window.location.href=\'admin.php\'; </script>';
     exit();
   }else {
-    echo '<script> alert("There are no files uploaded for this contest"); window.location.href=\'index.php#work\'; </script>';
+    echo '<script> alert("There are no files uploaded for this contest"); window.location.href=\'index.php\'; </script>';
     exit;
   }
   // header("Location: index.php#service");
@@ -50,31 +65,6 @@ header("Content-Disposition: attachment; filename=' " .basename($zipname). "'");
 header("Location: ". $zipname);
 readfile($zipname);
 
-// header("Location: index.php#service");
 exit;
-
-
-// header('Content-Length: ' . filesize($zipname));
-// readfile($zipname);
-
-
-
-// foreach($files as $file) {
-//   if ('.' === $file) continue;
-//   if ('..' === $file) continue;
-//   // if($file == 'Tucker_Joe-1-5d2c93d8d6c595.07083044.gif') continue;
-//   $file_path = $folder_path. "/". $file;
-//
-//   // echo "<p>".$file_path. "</br></p>";
-//   header("Cache-Control: public");
-//   header("Content-Description: File Transfer");
-//   header("Content-Disposition: attachment; filename=$file");
-//   header("Content-Type: application/zip");
-//   header("Content-Transfer-Encoding: binary");
-//   readfile($file_path);
-//   exit;
-// }
-
-
 
 ?>

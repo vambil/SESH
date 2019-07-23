@@ -49,6 +49,10 @@ if(isset($_GET['contest_name'])){
       }
 
       $conn->close();
-      header("Location: index.php#service");
+      if(isset($_GET['admin'])){
+        header("Location: admin.php#service");
+      }else {
+        header("Location: index.php#service");
+      }
       die();
 }

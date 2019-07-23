@@ -720,7 +720,7 @@
            </div>
 
 					 <label class="control-label" for="early_questions">
-				 	 What type of help do you need? (Ex: creating a steering committee, promoting a contest, sharing results, other)
+				 	 What type of help do you need? (Ex: creating a steering committee, promoting a contest, sharing results, other). This will be used by the SESH team to provide you with the most relavent resources.
 				 	</label>
 				 	<textarea class="form-control" cols="40" id="early_questions" name="early_comments" rows="10"><?php
                     if(!$_SESSION['new_contest'] && $_SESSION['cur_stage'] == "Early"){
@@ -1000,7 +1000,7 @@
 
 
  					 <label class="control-label" for="mid_questions">
-						 What type of help do you need? (Ex: creating a steering committee, promoting a contest, sharing results, other)
+						 What type of help do you need? (Ex: creating a steering committee, promoting a contest, sharing results, other). This will be used by the SESH team to provide you with the most relavent resources.
 					 </label>
  				 	<textarea class="form-control" cols="40" id="mid_questions" name="mid_comments" rows="10"><?php
                     if(!$_SESSION['new_contest'] && $_SESSION['cur_stage'] == "Mid"){
@@ -1316,7 +1316,7 @@
          </div> -->
 
 			  <label class="control-label ">
-					<br>What type of help do you need? (Ex: creating a steering committee, promoting a contest, sharing results, other)
+					<br>What type of help do you need? (Ex: creating a steering committee, promoting a contest, sharing results, other. This will be used by the SESH team to provide you with the most relavent resources.
 			  </label>
 			  <textarea class="form-control" name = "completed_comments" cols="40" rows="10"><?php
                   if(!$_SESSION['new_contest'] && $_SESSION['cur_stage'] == "Completed"){

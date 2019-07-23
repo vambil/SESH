@@ -13,13 +13,13 @@ if(isset($_POST['submit'])){
   $re_password = mysqli_real_escape_string($conn, $_POST['re_password']);
 
   if(empty($first) || empty($last) || empty($country) || empty($organization) ||empty($email) || empty($password)){
-    echo '<script> alert("Please fill out all the required fields"); window.location.href=\'index.html\'; </script>';
+    echo '<script> alert("Please fill out all the required fields"); window.location.href=\'index.php\'; </script>';
     // echo "make sure fields are not empty";
     exit();
   }
 
   if($password != $re_password){
-    echo '<script> alert("Your passwords do not match"); window.location.href=\'index.html\'; </script>';
+    echo '<script> alert("Your passwords do not match"); window.location.href=\'index.php\'; </script>';
     exit();
   }
 
@@ -32,7 +32,7 @@ if(isset($_POST['submit'])){
     $resultCheck = mysqli_num_rows($result);
 
     if($resultCheck != 0){ //check if user has been taken
-      echo '<script> alert("Error, this email already has been registered"); window.location.href=\'index.html\'; </script>';
+      echo '<script> alert("Error, this email already has been registered"); window.location.href=\'index.php\'; </script>';
 
       // echo "error, this email already has been registered";
       exit();
@@ -47,7 +47,7 @@ if(isset($_POST['submit'])){
         $result = mysqli_query($conn, $sql);
         $row = mysqli_fetch_assoc($result);
 
-        $_SESSION['u_id'] = $row['user_id'];
+    $_SESSION['u_id'] = $row['user_id'];
 
     $_SESSION['u_first'] = $first;
     $_SESSION['u_last'] = $last;
@@ -62,5 +62,5 @@ if(isset($_POST['submit'])){
 
 }
 else{
-  header("Location: index.html");
+  header("Location: index.php");
 }

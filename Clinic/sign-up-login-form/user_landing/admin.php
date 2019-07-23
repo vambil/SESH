@@ -241,9 +241,9 @@
                 <div class="row align-items-center">
                     <div class="col-xl-5 col-lg-6">
                         <div class="header-content-right">
-                            <h4 class="sub-title">Welcome</h4>
-                            <h1 class="title"><?php echo "{$_SESSION['u_first']}" ?> <?php echo $_SESSION["u_last"]; ?></h1>
-                            <a class="main-btn" href="#about">Statistics</a>
+                            <h4 class="sub-title">Crowdsourcing Clinic</h4>
+                            <h1 class="title">ADMIN PORTAL</h1>
+                            <a class="main-btn" href="#about">Overview</a>
                         </div> <!-- header content right -->
                     </div>
                     <div class="col-lg-6 offset-xl-1">
@@ -453,14 +453,12 @@
               $user_row = getUserRow($row['email']);
         ?>
 
-        <!-- <h3>   <?php //echo $row['contest_name']; ?></br></h3> -->
-
-
             <!-- <a href="../../../register_form2.html"> -->
               <div class="col-md-4 mt-5">
                     <div class="card text-center">
                       <div class="card-body">
-                        <h5 class="card-title"> <?php echo $user_row['user_first']. " | ". $row['stage']. " | ". $row['contest_name']; ?> </h5>
+                        <h4> <?php echo $user_row['user_first']; ?> </h4>
+                        <h5 class="card-title"> </br><?php echo $row['stage']. " | ". $row['contest_name']; ?> </h5>
                         <p><?php
                           echo "<b>Comments: </b>".$this_row['comments'];
                          ?></p>
@@ -493,13 +491,13 @@
                           </div> -->
                           <div class="col">
                             <?php
-                              echo "<a href=\"download.php?contest_name=". $row['contest_name']. " \"><font color=\"green\">download</font></a>";
+                              echo "<a href=\"download.php?contest_name=". $row['contest_name']. "&user_id=". $user_row['user_id'] ." \"><font color=\"green\">download</font></a>";
                             ?>
                           </div>
                           <div class="col">
 
                             <?php
-                              echo "<a href=\"delete_contest.php?contest_name=". $row['contest_name']. " \"><font color=\"red\">delete</font></a>";
+                              echo "<a href=\"delete_contest.php?contest_name=". $row['contest_name']. "&admin=true \"><font color=\"red\">delete</font></a>";
                             ?>
 
                             <!-- <a href="delete_contest.php?contest_name="><font color="red">delete</font></a> -->
@@ -549,154 +547,118 @@
         </div> <!-- container -->
     </section>
 
-    <!--====== MY CONTESTS PART ENDS ======-->
-
-    <!--====== CALL TO ACTION PART START ======-->
-
-
-    <!--====== CALL TO ACTION PART ENDS ======-->
-
-    <!--====== WORK PART START ======-->
-
-
-
-    <!--====== WORK PART ENDS ======-->
-
     <!--====== PRICING PART START ======-->
-    <?php
-      $all_early = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM early_storage"));
-      $all_mid = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM mid_storage"));
-      $all_completed = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM completed_storage"));
-    ?>
 
-    <section id="pricing" class="pricing-area gray-bg pt-125 pb-130">
+
+    <!-- <section id="about" class="about-area pt-125 pb-130"> -->
+    <section id="pricing" class="about-area pt-125 pb-130">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-8">
                     <div class="section-title text-center pb-25">
-                        <h2 class="title">Our Resources</h2>
-                        <p>Welcome to the first network of crowdsourcing contests! </p>
+                        <h2 class="title">All Users</h2>
+                        <p>Below are all the registered users! </p>
                     </div> <!-- section title -->
                 </div>
             </div> <!-- row -->
+
             <div class="row justify-content-center">
+
+
+              <?php
+                  $conn = new mysqli('localhost', 'root', '', 'registration_storage');
+                  $sql ="SELECT * FROM users";
+
+                  $result = mysqli_query($conn, $sql);
+                  $numRows = mysqli_num_rows($result);
+
+                  for ($x = 0; $x < $numRows; $x++) {
+
+                    $this_user = mysqli_fetch_array($result);
+
+                    $sql2 = "SELECT * FROM general WHERE email = '$this_user[user_email]' ";
+                    $result2 = mysqli_query($conn, $sql2);
+                    $num_contests = mysqli_num_rows($result2);
+              ?>
+
                 <div class="col-lg-4 col-md-8 col-sm-9">
                     <div class="single-pricing text-center mt-30">
                         <div class="pricing-package">
-                            <h4 class="package-title">Early</h4>
+                            <h4 class="package-title"><?php echo $this_user['user_first']. " ".$this_user['user_last'];  ?></h4>
                         </div>
                         <div class="pricing-body">
                             <div class="pricing-text">
-                                <p>Idea stage contests, with end to end assistance and contest planning.</p>
+                              <table align = "left" style="width:100%" >
+                                <tr>
+                                  <td>User id</td>
+                                  <td><?php echo $this_user['user_id'];?></td>
+                                </tr>
+                                <tr>
+                                  <td>Country</td>
+                                  <td><?php echo $this_user['user_country'];?></td>
+                                </tr>
+                                <tr>
+                                  <td>Organization</td>
+                                  <td><?php echo $this_user['user_organization'];?></td>
+                                </tr>
+                                <tr>
+                                  <td>Email</td>
+                                  <td><?php echo $this_user['user_email'];?></td>
+                                </tr>
+                                <tr>
+                                  <td>Joined</td>
+                                  <td><?php echo $this_user['user_timestamp'];?></td>
+                                </tr>
+                              </table>
 
-                                <span class="price"><?php echo mysqli_num_rows(mysqli_query($conn, "SELECT * FROM early_storage")); ?>
-                                   total
-                                   <?php if(mysqli_num_rows(mysqli_query($conn, "SELECT * FROM early_storage")) == 1){ echo "contest";} else{ echo "contests";}?></span>
+                                <span class="price"><?php echo $num_contests; ?>
+
+                                   <?php if($num_contests == 1){
+                                     echo "contest";
+                                   }else {
+                                     echo "contests";
+                                   }?>
+
+                                 </span>
+
+                                 <h7>
+                                 </br>
+                                 </br>
+                                 <div class="row">
+                                   <div class="col">
+                                     <?php
+                                       echo "<a href=\"../index.php?user_id=". $this_user['user_id']. " \"><font color=\"blue\">edit</font></a>";
+                                     ?>
+                                   </div>
+                                   <!-- <div class="col">
+                                     <?php
+                                     //echo "<a href=\"delete_user.php?user_id=". $this_user['user_id']. " \"><font color=\"green\">password</font></a>";
+                                     ?>
+                                   </div> -->
+                                   <?php
+                                    if($this_user['user_email'] != "clinic@seshglobal.org"){
+                                      ?>
+                                   <div class="col">
+                                     <?php
+                                        echo "<a href=\"delete_user.php?user_id=". $this_user['user_id']. " \"><font color=\"red\">delete</font></a>";
+                                     ?>
+                                   </div>
+                                 <?php
+                                   }
+                                 ?>
+                                 </div>
+                               </h7>
                             </div>
 
                         </div>
                     </div> <!-- single pricing -->
                 </div>
-                <div class="col-lg-4 col-md-8 col-sm-9">
-                    <div class="single-pricing active text-center mt-30">
-                        <div class="pricing-package">
-                            <h4 class="package-title">Mid</h4>
-                        </div>
-                        <div class="pricing-body">
-                            <div class="pricing-text">
-                                <p>Planning stage contests with full assistance for upcoming contests.</p>
-                                <span class="price"><?php echo mysqli_num_rows(mysqli_query($conn, "SELECT * FROM mid_storage")); ?> total
-                                  <?php if(mysqli_num_rows(mysqli_query($conn, "SELECT * FROM mid_storage")) == 1){ echo "contest";} else{ echo "contests";}?></span>
-                            </div>
-
-                        </div>
-                    </div> <!-- single pricing -->
-                </div>
-                <div class="col-lg-4 col-md-8 col-sm-9">
-                    <div class="single-pricing text-center mt-30">
-                        <div class="pricing-package">
-                            <h4 class="package-title">Completed</h4>
-                        </div>
-                        <div class="pricing-body">
-                            <div class="pricing-text">
-                                <p>Assistance with sharing of contest results.</p>
-                                <span class="price"><?php echo mysqli_num_rows(mysqli_query($conn, "SELECT * FROM completed_storage")); ?> total <?php if(mysqli_num_rows(mysqli_query($conn, "SELECT * FROM completed_storage")) == 1){ echo "contest";} else{ echo "contests";}?></span>
-                            </div>
-
-                        </div>
-                    </div> <!-- single pricing -->
-                </div>
+                <?php
+                }
+                 ?>
 
 
-                <!-- <div class="row justify-content-center">
-                    <div class="col-lg-4 col-md-6 col-sm-8">
-                        <div class="single-service text-center mt-30">
-                            <div class="service-icon">
-                                <i class="lni-code-alt"></i>
-                            </div>
-                            <div class="service-content">
-                                <h4 class="service-title"><a href="#">Web Design</a></h4>
-                                <p>Curabitur vitae magna felis. Nulla ac libero ornare, vestibulum lacus quis blandit enimdicta sunt.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-8">
-                        <div class="single-service text-center mt-30">
-                            <div class="service-icon">
-                                <i class="lni-color-pallet"></i>
-                            </div>
-                            <div class="service-content">
-                                <h4 class="service-title"><a href="#contact">Graphic Design</a></h4>
-                                <p>Curabitur vitae magna felis. Nulla ac libero ornare, vestibulum lacus quis blandit enimdicta sunt.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-8">
-                        <div class="single-service text-center mt-30">
-                            <div class="service-icon">
-                                <i class="lni-mobile"></i>
-                            </div>
-                            <div class="service-content">
-                                <h4 class="service-title"><a href="#">App Design</a></h4>
-                                <p>Curabitur vitae magna felis. Nulla ac libero ornare, vestibulum lacus quis blandit enimdicta sunt.</p>
-                            </div>
-                        </div>
-                    </div> -->
-                    <div class="col-lg-4 col-md-6 col-sm-8">
-                        <div class="single-service text-center mt-30">
-                            <div class="service-icon">
-                                <i class="lni-vector"></i>
-                            </div>
-                            <div class="service-content">
-                                <h4 class="service-title"><a href="#contact">Refined Materials</a></h4>
-                                <p>We have compiled a folder with past contest materials that will help you bring your contest to the next level.</p>
-                            </div>
-                        </div> <!-- single service -->
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-8">
-                        <div class="single-service text-center mt-30">
-                            <div class="service-icon">
-                                <i class="lni-website"></i>
-                            </div>
-                            <div class="service-content">
-                                <h4 class="service-title"><a href="#contact">Contest network</a></h4>
-                                <p>With <b><?php echo $all_contests;?></b> total contests registered with our network, you will be part of the largest network of crowdsourcing collaborators. </p>
-                            </div>
-                        </div> <!-- single service -->
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-8">
-                        <div class="single-service text-center mt-30">
-                            <div class="service-icon">
-                                <i class="lni-support"></i>
-                            </div>
-                            <div class="service-content">
-                                <h4 class="service-title"><a href="#contact">Consultancy and Support</a></h4>
-                                <p>You will be working with personal SESH mentors that will help you with your contest.</p>
-                            </div>
-                        </div> <!-- single service -->
-                    </div>
-                </div>
-
+              </div>
             </div> <!-- row -->
         </div> <!-- container -->
     </section>

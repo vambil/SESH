@@ -18,7 +18,7 @@ if(isset($_POST['submit'])){
   $result = mysqli_query($conn, $sql);
   $resultCheck = mysqli_num_rows($result);
   if($resultCheck != 1){ //check if user has been taken
-    echo '<script> alert("Error, user not found"); window.location.href=\'index.html\'; </script>';
+    echo '<script> alert("Error, user not found"); window.location.href=\'index.php\'; </script>';
     //echo "error, login unsuccesful";
     exit();
   }
@@ -27,7 +27,7 @@ if(isset($_POST['submit'])){
     //De hash PASSWORD
     $hashedPasswordCheck = password_verify($password, $row['user_pwd']);
     if($hashedPasswordCheck == false){
-      echo '<script> alert("Error, incorrect username or password"); window.location.href=\'index.html\'; </script>';
+      echo '<script> alert("Error, incorrect username or password"); window.location.href=\'index.php\'; </script>';
       //
       // echo "error, login unsuccesful";
       exit();
@@ -61,6 +61,6 @@ if(isset($_POST['submit'])){
 
 }
 else{
-  header("Location: index.html");
+  header("Location: index.php");
   exit();
 }
