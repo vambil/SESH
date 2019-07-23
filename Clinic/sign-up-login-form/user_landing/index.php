@@ -501,7 +501,7 @@
                           </div>
                           <div class="col">
                             <?php
-                              echo "<a href=\"download.php?contest_name=". $row['contest_name']. " \"><font color=\"green\">download</font></a>";
+                              echo "<a href=\"download.php?contest_name=". $row['contest_name']. "&user_id=". $_SESSION['u_id'] ." \"><font color=\"green\">download</font></a>";
                             ?>
                           </div>
                           <div class="col">
@@ -805,7 +805,7 @@
                         </div>
                         <div class="col">
                           <?php
-                            echo "<a href=\"download.php?contest_name=". $row['contest_name']. " \"><font color=\"green\">download</font></a>";
+                            echo "<a href=\"download.php?contest_name=". $row['contest_name']. "&user_id=". $user_row['user_id'] . " \"><font color=\"green\">download</font></a>";
                           ?>
 
                         </div>
