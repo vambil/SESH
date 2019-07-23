@@ -16,7 +16,7 @@ if(isset($_GET['contest_name'])){
       // if($bool){
         // echo "YAY";
       // }
-      // $bool = NULL;
+      // $bool = NULL;c
 
       // die();
 
