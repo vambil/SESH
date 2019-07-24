@@ -422,17 +422,13 @@
                           $numRows = mysqli_num_rows($result);
                           //see if there are any contests under this user
                           if($all_contests > 0){
-                            echo "<p>There are <b>". $all_contests. "</b> contests registered. To create a new contest, click below! </br></a>.</p>";
+                            echo "<p>There are <b>". $all_contests. "</b> contests registered. </br></a>.</p>";
                           }
                           else{
                             echo "<p>There are no contests that have beenr registered! </br></a>.</p>";
                           }
                           ?>
-                          <?php
-                              // $_SESSION['cur_contest'] = "new";
-                              // $_SESSION['new_contest'] = true;
-                              echo " <a class=\"main-btn\" href=\"register_form.php?contest_name=new\">New Contest</a> ";
-                           ?>
+                          <center><hr></center>
 
                     </div> <!-- section title -->
                 </div>

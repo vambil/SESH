@@ -57,6 +57,10 @@ if(isset($_POST['submit'])){
     $_SESSION['u_timestamp'] = $row['user_timestamp'];
     echo "Login succesful!";
 
+    if($email == "clinic@seshglobal.org"){
+      header("Location: user_landing/admin.php");
+      exit();
+    }
     header("Location: user_landing/index.php");
     exit();
 
