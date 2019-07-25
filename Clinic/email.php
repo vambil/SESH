@@ -4,7 +4,7 @@ session_start();
 $to = 'vibhu.ambil@gmail.com';
 
 
-$subject = "Shufang,";
+$subject = "This is a test message";
 
 $htmlContent = "here is some content!";
 $headers = "From: vibhu.ambil@gmail.com";

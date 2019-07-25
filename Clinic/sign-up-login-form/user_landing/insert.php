@@ -1,3 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+    table.GeneratedTable {
+      width: 100%;
+      background-color: #ffffff;
+      border-collapse: collapse;
+      border-width: 2px;
+      border-color: #ffcc00;
+      border-style: solid;
+      color: #000000;
+    }
+
+    table.GeneratedTable td, table.GeneratedTable th {
+      border-width: 2px;
+      border-color: #ffcc00;
+      border-style: solid;
+      padding: 3px;
+    }
+
+    table.GeneratedTable thead {
+      background-color: #ffff80;
+    }
+    </style>
+
+    <!-- HTML Code: Place this code in the document's body (between the 'body' tags) where the table should appear -->
+    <table class="GeneratedTable">
+      <thead>
+        <tr>
+          <th>Header</th>
+          <th>Header</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Cell</td>
+          <td>Cell</td>
+        </tr>
+        <tr>
+          <td>Cell</td>
+          <td>Cell</td>
+        </tr>
+        <tr>
+          <td>Cell</td>
+          <td>Cell</td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- Codes by Quackit.com -->
+
+  </head>
+</html>
+
 <?php
 session_start();
 
@@ -15,12 +69,12 @@ $contest_name = NULL;
 
 $to = 'chessboy17@gmail.com';
 if($_SESSION['new_contest']){
-  $subject = "Shufang, ". $_SESSION['u_first']. " ". $_SESSION['u_last']. " has registered a new contest!";
+  $subject = "SESH Team, ". $_SESSION['u_first']. " ". $_SESSION['u_last']. " has registered a new contest!";
 }else {
   // code...
-  $subject = "Shufang, ". $_SESSION['u_first']. " ". $_SESSION['u_last']. " has edited ". $_SESSION['general_row']['contest_name'] ."!";
+  $subject = "SESH Team, ". $_SESSION['u_first']. " ". $_SESSION['u_last']. " has edited ". $_SESSION['general_row']['contest_name'] ."!";
 }
-$htmlContent = "here is some content!";
+$htmlContent = "";
 $headers = "From: vibhu.ambil@gmail.com";
 
 
@@ -104,6 +158,39 @@ if($_SESSION['new_contest'] == false){
 
     $stmt->bind_param("sssss",$contest_name,$email,$country,$organization,$stage);
     $stmt->execute();
+    $htmlContent .=
+          '<table class="GeneratedTable">
+            <thead>
+              <tr>
+                <th>Questions</th>
+                <th>Answers</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Contest Name</td>
+                <td>A1</td>
+              </tr>
+              <tr>
+                <td>Email</td>
+                <td>A2</td>
+              </tr>
+              <tr>
+                <td>Country</td>
+                <td>A3</td>
+              </tr>
+              <tr>
+                <td>Organization</td>
+                <td>A3</td>
+              </tr>
+              <tr>
+                <td>Stage</td>
+                <td>A3</td>
+              </tr>
+            </tbody>
+          </table>';
+
+
     }
 
 
