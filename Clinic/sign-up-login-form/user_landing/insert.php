@@ -55,7 +55,7 @@
 <?php
 session_start();
 
-$conn = new mysqli('localhost', 'root', '', 'registration_storage');
+$conn = mysqli_connect("mysql.hostinger.com", "u612084811_root", "SESHllc2019", "u612084811_reg_storage");
 if($conn->connect_error){
   die('Connect Failed : '.$conn->connect_error);
 }
@@ -67,7 +67,7 @@ $organization = mysqli_real_escape_string($conn, $_POST['organization']);
 $stage = mysqli_real_escape_string($conn, $_POST['stage']);
 $contest_name = NULL;
 
-$to = 'chessboy17@gmail.com';
+$to = 'clinic@seshglobal.org';
 if($_SESSION['new_contest']){
   $subject = "SESH Team, ". $_SESSION['u_first']. " ". $_SESSION['u_last']. " has registered a new contest!";
 }else {
@@ -76,6 +76,8 @@ if($_SESSION['new_contest']){
 }
 $htmlContent = "";
 $headers = "From: vibhu.ambil@gmail.com";
+$headers .= "MIME-Version: 1.0\r\n";
+$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
 
 
 if($_SESSION['new_contest']){
@@ -153,45 +155,51 @@ if($_SESSION['new_contest'] == false){
           exit;
       }
     }else {
-    $stmt = $conn->prepare("INSERT into general(contest_name, email, country, organization, stage)
-    values(?,?,?,?,?)");
+        $stmt = $conn->prepare("INSERT into general(contest_name, email, country, organization, stage)
+        values(?,?,?,?,?)");
 
-    $stmt->bind_param("sssss",$contest_name,$email,$country,$organization,$stage);
-    $stmt->execute();
-    $htmlContent .=
-          '<table class="GeneratedTable">
-            <thead>
-              <tr>
-                <th>Questions</th>
-                <th>Answers</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Contest Name</td>
-                <td>A1</td>
-              </tr>
-              <tr>
-                <td>Email</td>
-                <td>A2</td>
-              </tr>
-              <tr>
-                <td>Country</td>
-                <td>A3</td>
-              </tr>
-              <tr>
-                <td>Organization</td>
-                <td>A3</td>
-              </tr>
-              <tr>
-                <td>Stage</td>
-                <td>A3</td>
-              </tr>
-            </tbody>
-          </table>';
-
-
+        $stmt->bind_param("sssss",$contest_name,$email,$country,$organization,$stage);
+        $stmt->execute();
     }
+
+    $htmlContent .=
+          '<html>
+            <body>
+              <table class="GeneratedTable">
+                <thead>
+                  <tr>
+                    <th><b>General Questions</b></th>
+                    <th><b>Answers</b></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Contest Name</td>
+                    <td>'.$contest_name.'</td>
+                  </tr>
+                  <tr>
+                    <td>Email</td>
+                    <td>'.$email.'</td>
+                  </tr>
+                  <tr>
+                    <td>Country</td>
+                    <td>'.$country.'</td>
+                  </tr>
+                  <tr>
+                    <td>Organization</td>
+                    <td>'.$organization.'</td>
+                  </tr>
+                  <tr>
+                    <td>Stage</td>
+                    <td>'.$stage.'</td>
+                  </tr>
+                </tbody>
+              </table>
+            ';
+
+        // $htmlContent = '<html><body>';
+        // $htmlContent .= '<h1>Hello, World!</h1>';
+        // $htmlContent .= '</body></html>';
 
 
   //echo "general submitted";
@@ -238,6 +246,36 @@ if($_SESSION['new_contest'] == false){
     }
     echo "Your early registration has been submitted!";
     $conn->close();
+
+    $htmlContent .=
+          '<table class="GeneratedTable">
+                <thead>
+                  <tr>
+                    <th><b>Early Questions</b></th>
+                    <th><b>Answers</b></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Goal of the Contest</td>
+                    <td>'.$early_goal.'</td>
+                  </tr>
+                  <tr>
+                    <td>Contest Type</td>
+                    <td>'.$early_field.'</td>
+                  </tr>
+                  <tr>
+                    <td>Online?</td>
+                    <td>'.$early_online.'</td>
+                  </tr>
+                  <tr>
+                    <td><b>Comments</b></td>
+                    <td>'.$early_comments.'</td>
+                  </tr>
+                </tbody>
+              </table>
+            </body>
+        </html>';
 
     mail($to,$subject,$htmlContent,$headers);
 
@@ -309,6 +347,64 @@ if($_SESSION['new_contest'] == false){
       echo "Your mid registration has been submitted!";
       $conn->close();
 
+      $htmlContent .=
+          '<table class="GeneratedTable">
+                <thead>
+                  <tr>
+                    <th><b>Mid Questions</b></th>
+                    <th><b>Answers</b></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Goal of the Contest</td>
+                    <td>'.$mid_goal.'</td>
+                  </tr>
+                  <tr>
+                    <td>Contest Type</td>
+                    <td>'.$mid_contest_type.'</td>
+                  </tr>
+                  <tr>
+                    <td>Field</td>
+                    <td>'.$mid_field.'</td>
+                  </tr>
+                  <tr>
+                    <td>Online?</td>
+                    <td>'.$mid_online.'</td>
+                  </tr>
+                  <tr>
+                    <td>Target Audience</td>
+                    <td>'.$mid_target.'</td>
+                  </tr>
+                  <tr>
+                    <td>Tupe of Entries</td>
+                    <td>'.$mid_entry_type.'</td>
+                  </tr>
+                  <tr>
+                    <td>Promotional Strategy</td>
+                    <td>'.$mid_promotion_strategy.'</td>
+                  </tr>
+                  <tr>
+                    <td>Team Size</td>
+                    <td>'.$mid_team_size.'</td>
+                  </tr>
+                  <tr>
+                    <td>Partner Organizations</td>
+                    <td>'.$mid_partners.'</td>
+                  </tr>
+                  <tr>
+                    <td>Contest Date</td>
+                    <td>'.$mid_contest_date.'</td>
+                  </tr>
+                  <tr>
+                    <td><b>Comments</b></td>
+                    <td>'.$mid_comments.'</td>
+                  </tr>
+                </tbody>
+              </table>
+            </body>
+        </html>';
+
       mail($to,$subject,$htmlContent,$headers);
       if($_SESSION['u_email'] == "clinic@seshglobal.org"){
         header("Location: admin.php");
@@ -364,7 +460,6 @@ if($_SESSION['new_contest'] == false){
            contest_summary = '$completed_contest_summary',
            contest_sharing = '$completed_contest_sharing',
            shared_links = '$completed_shared_links',
-           -- attachments = '$completed_attachments',
 
            comments = '$completed_comments'
 
@@ -393,6 +488,80 @@ if($_SESSION['new_contest'] == false){
     echo "Your completed registration has been submitted!";
     $conn->close();
 
+    $htmlContent .=
+          '<table class="GeneratedTable">
+                <thead>
+                  <tr>
+                    <th><b>Completed Questions</b></th>
+                    <th><b>Answers</b></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Goal of the Contest</td>
+                    <td>'.$completed_goal.'</td>
+                  </tr>
+                  <tr>
+                    <td>Contest Type</td>
+                    <td>'.$completed_contest_type.'</td>
+                  </tr>
+                  <tr>
+                    <td>Field</td>
+                    <td>'.$completed_field.'</td>
+                  </tr>
+                  <tr>
+                    <td>Online?</td>
+                    <td>'.$completed_online.'</td>
+                  </tr>
+                  <tr>
+                    <td>Target Audience</td>
+                    <td>'.$completed_target.'</td>
+                  </tr>
+                  <tr>
+                    <td>Tupe of Entries</td>
+                    <td>'.$completed_entry_type.'</td>
+                  </tr>
+                  <tr>
+                    <td>Promotional Strategy</td>
+                    <td>'.$completed_promotion_strategy.'</td>
+                  </tr>
+                  <tr>
+                    <td>Team Size</td>
+                    <td>'.$completed_team_size.'</td>
+                  </tr>
+                  <tr>
+                    <td>Partner Organizations</td>
+                    <td>'.$completed_partners.'</td>
+                  </tr>
+                  <tr>
+                    <td>Contest Date</td>
+                    <td>'.$completed_contest_date.'</td>
+                  </tr>
+                  <tr>
+                    <td>Number of Submissions</td>
+                    <td>'.$completed_num_submissions.'</td>
+                  </tr>
+                  <tr>
+                    <td>Contest SUmmary</td>
+                    <td>'.$completed_contest_summary.'</td>
+                  </tr>
+                  <tr>
+                    <td>Contest Sharing</td>
+                    <td>'.$completed_contest_sharing.'</td>
+                  </tr>
+                  <tr>
+                    <td>Shared Links</td>
+                    <td>'.$completed_shared_links.'</td>
+                  </tr>
+                  <tr>
+                    <td><b>Comments</b></td>
+                    <td>'.$completed_comments.'</td>
+                  </tr>
+                </tbody>
+              </table>
+            </body>
+        </html>';
+
     mail($to,$subject,$htmlContent,$headers);
     if($_SESSION['u_email'] == "clinic@seshglobal.org"){
       header("Location: admin.php");
@@ -418,7 +587,7 @@ if($_SESSION['new_contest'] == false){
 //   $dbName = "registration_storage";
 //
 //   //create connection
-//   $conn = new mysqli($host, $dbUsername, $dbPassword, $dbName);
+//   $conn = mysqli_connect("mysql.hostinger.com", "u612084811_root", "SESHllc2019", "u612084811_reg_storage");
 //
 //   if(mysq_connect_error()){
 //     die('Connect Error('. mysqli_connect_errorno(). ')' . mysqli_connect_error());
